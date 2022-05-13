@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActiveGraph</title>
+    <script src="js/vue.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container-card">
+            <ul class="graph">
+                <el-tooltip class="item" effect="dark" :content="item.year + '-' + item.month + '-' + item.date"
+                    placement="top-start" v-for="(item, index) in infos" :key="index" :open-delay="500">
+                    <li :data-level="item.level" class="li-day" :isToday="item.isToday" @click="handleClick(item)"></li>
+                </el-tooltip>
+            </ul>
+
+            <ul class="months">
+                <li class="li-month" v-for="(item,index) in monthBar" :key="index">{{item}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                infos: [],
+                current: {
+                    year: "",
+                    month: "",
+                    date: "",
+                },
+                monthBar: ["", "", "", "", "", "", "", "", "", "", "", ""],
+            },
+            methods: {
+                handleClick: function (item) {
+                    console.log(item.year + "-" + item.month + "-" + item.date)
+                    alert(item.year + "-" + item.month + "-" + item.date)
+                }
+            },
+            created() {
+                let d = new Date();
+                let day = d.getDay();
+                let today = d.getDate();
+
+                this.current.year = d.getFullYear();
+                this.current.month = d.getMonth();
+                this.current.date = d.getDate();
+
+                let info = {};
+                let month = "";
+                let weekOfMonth = ""
+
+                for (let i = 0; i < 84; i++) {
+                    d.setFullYear(this.current.year);
+                    d.setMonth(this.current.month);
+                    d.setDate(this.current.date);
+
+                    d.setDate(today - 77 - day + i);
+
+                    let level = Math.floor(Math.random() * 4);
+
+                    if (
+                        d.getMonth() == this.current.month &&
+                        d.getDate() == this.current.date
+                    ) {
+                        info = {
+                            year: d.getFullYear(),
+                            month: d.getMonth() + 1,
+                            date: d.getDate(),
+                            number: 10,
+                            level: level,
+                            isToday: true,
+                        };
+                        this.infos.push(info);
+                    } else {
+                        info = {
+                            year: d.getFullYear(),
+                            month: d.getMonth() + 1,
+                            date: d.getDate(),
+                            number: 10,
+                            level: level,
+                            isToday: false,
+                        };
+                        this.infos.push(info);
+
+
+                    }
+                    if (d.getDate() == 1) {
+                        month = d.getMonth() + 1
+                        weekOfMonth = parseInt((i + 1) / 7)
+                        this.monthBar[weekOfMonth] = month + "月"
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
