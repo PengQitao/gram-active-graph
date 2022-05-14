@@ -4,13 +4,13 @@
 
 最终效果如下图所示：
 
-![02.最终效果](D:\Users\nicky\Desktop\博客\002_vue自定义类似flomo、github活跃图(格子图、贡献图)\pic\02.最终效果.gif)
+![02.最终效果](/pic/02.最终效果.gif)
 
 ## 一、布局样式
 
 该组件采用了`grid`网格布局，容器时自定义的卡片，具体内容上由`<ul>`和`<li>`实现，格子部分和下边月份部分是独立的`<ul>`，内容均为`<li>`。
 
-![03.基本样式](D:\Users\nicky\Desktop\博客\002_vue自定义类似flomo、github活跃图(格子图、贡献图)\pic\03.基本样式.png)
+![03.基本样式](/pic/03.基本样式.png)
 
 html框架如下:
 
@@ -193,7 +193,7 @@ methods: {
 
 至于鼠标悬停显示信息则是采用了element-ui的tooltip组件，并作为v-for所在的组件包裹住`<li>`标签，代替`<li>`标签的for循环
 
-![04.tooltip](D:\Users\nicky\Desktop\博客\002_vue自定义类似flomo、github活跃图(格子图、贡献图)\pic\04.tooltip.png)
+![04.tooltip](/pic/04.tooltip.png)
 
 ```html
 <el-tooltip class="item" effect="dark" :content="item.year + '-' + item.month + '-' + item.date" placement="top-start" v-for="(item, index) in infos" :key="index" :open-delay="500">
